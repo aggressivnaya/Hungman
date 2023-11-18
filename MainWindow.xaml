@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:IshTaluy"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="#F2E9E4">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -29,8 +29,8 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <Button x:Name="sln" Grid.Column="1" Content="Solution" Margin="30" FontSize="30" Click="ShowWord"/>
-                        <Button x:Name="newWord" Grid.Column="0" Content="NewWord" Margin="30" FontSize="30" Click="SelectNewWord"/>
+                        <Button x:Name="sln" Grid.Column="1" Content="Solution" Margin="30" FontSize="30" Click="ShowWord" Background="#C9ADA7" Foreground="#4A4E69"/>
+                        <Button x:Name="newWord" Grid.Column="0" Content="NewWord" Margin="30" FontSize="30" Click="SelectNewWord" Background="#C9ADA7" Foreground="#4A4E69"/>
                     </Grid>
                 </Border>
             </Grid>
@@ -49,12 +49,12 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock x:Name="result" Grid.Column="1" Text="Result:" Margin="10" VerticalAlignment="Center" FontSize="30"/>
+                        <TextBlock x:Name="result" Grid.Column="1" Text="Result:" Margin="20" VerticalAlignment="Center" FontSize="30" Background="#C9ADA7" Foreground="#4A4E69"/>
                     </Grid>
                 </Border>
 
                 <Border Grid.Row="0">
-                    <Image x:Name="manImage" Margin="25"/>
+                    <Image x:Name="manImage" Margin="25" Source="pack://application:,,,/Hungman/white.png"/>
                 </Border>
             </Grid>
         </Border>

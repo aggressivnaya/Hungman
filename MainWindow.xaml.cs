@@ -91,7 +91,7 @@ namespace IshTaluy
             lettersCount = 0;
             chances = 7;
             selectedWord = "";
-            var uri = new Uri($"pack://application:,,,/Hungman/white.png");
+            var uri = new Uri("pack://application:,,,/Hungman/white.png");
             var bitmap = new BitmapImage(uri);
             manImage.Source = bitmap;
 
@@ -103,6 +103,7 @@ namespace IshTaluy
         //The func is building all the letters in selected word
         private void BuildSelectedletters()
         {
+            var bc = new BrushConverter();
             this.theWord.Children.Clear();
             this.txtObj.Clear();
 
@@ -114,6 +115,9 @@ namespace IshTaluy
                 grid.Margin = new Thickness(70,20,70,20);
 
                 TextBox textBox = new TextBox();
+                textBox.TextAlignment = TextAlignment.Center;   
+                textBox.Background = (Brush)bc.ConvertFrom("#C9ADA7");
+                textBox.Foreground = (Brush)bc.ConvertFrom("#4A4E69");
                 textBox.IsReadOnly = true;//making sure the client not going to edit what he don't need to
                 grid.Children.Add(textBox);
                 this.theWord.Children.Add(grid);
@@ -125,6 +129,7 @@ namespace IshTaluy
         //The func is building all the alphebet letters 
         private void BuildBtnLetters()
         {
+            var bc = new BrushConverter();
             this.lettersGrid.Children.Clear();
 
             if (this.lettersGrid == null) { return; }
@@ -135,6 +140,8 @@ namespace IshTaluy
                 grid.Margin = new Thickness(8,1,8,1);
 
                 Button btn = new Button();
+                btn.Background = (Brush)bc.ConvertFrom("#C9ADA7");
+                btn.Foreground = (Brush)bc.ConvertFrom("#4A4E69");
                 btn.Content = letters[i].ToString();
                 btn.Click += BtnClick;
 
@@ -173,12 +180,14 @@ namespace IshTaluy
             if(lettersCount == selectedWord.Length)//checking if all the letters was guessed
             {
                 numOfGuessedWords++;
-                result.Text = numOfGuessedWords.ToString();
+                result.Text = "Result: " + numOfGuessedWords++.ToString();
+                SelectNewWord(null, null);
             }
             else if(chances == 0)//checking if the client used all his chances
             {
-                result.Text = numOfGuessedWords++.ToString();
+                result.Text = "Result: " + numOfGuessedWords.ToString();
                 MessageBox.Show("You lose");
+                SelectNewWord(null, null);
             }
         }
 
@@ -201,6 +210,7 @@ namespace IshTaluy
             }
 
             result.Text = numOfGuessedWords.ToString();
+            SelectNewWord(null,null);
         }
     }
 }
