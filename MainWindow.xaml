@@ -20,8 +20,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <UniformGrid x:Name="theWord" Grid.Row="0"/>
-                <UniformGrid x:Name="lettersGrid" Grid.Row="1"/>
+                <UniformGrid x:Name="theWord" Grid.Row="0" Rows="1" FlowDirection="LeftToRight"/>
+                <UniformGrid x:Name="lettersGrid" Grid.Row="1" Rows="2" FlowDirection="RightToLeft"/>
                 <Border Grid.Row="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -50,6 +50,7 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBlock x:Name="result" Grid.Column="1" Text="Result:" Margin="20" VerticalAlignment="Center" FontSize="30" Background="#C9ADA7" Foreground="#4A4E69"/>
+                        <ComboBox x:Name="SubjectCbox" Margin="45" DisplayMemberPath="Subject" SelectedValuePath="ID" SelectionChanged="SubjectCboxSelectionChanged"/>
                     </Grid>
                 </Border>
 

@@ -14,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Data;
+using System.Data.OleDb;
+
 namespace IshTaluy
 {
     /// <summary>
@@ -32,7 +35,8 @@ namespace IshTaluy
         List<char> letters = new List<char>()
         { 'א','ב','ג','ד','ה','ו','ז','ח','ט','י','כ','ל','מ','נ','ס','ע','פ','צ','ק','ר','ש','ת'};
         List<string> wordsList = new List<string>()
-        { "שלום", "לא", "אני"};
+        { "שלום", "לא", "ורוד"};
+        DataTable wordDataTable = new DataTable();
 
         public MainWindow()
         {
@@ -40,16 +44,18 @@ namespace IshTaluy
             lettersCount = 0;
             chances = 7;
             selectedWord = "";
+            this.SubjectCbox.ItemsSource = DAL.GetDataView("Select * from subjectTbl");
             //There're all the func that are runnig at the beggining the game ti build all the needed fields
-            SelectWord(null, null);
-            BuildSelectedletters();
+            //SelectWord(null, null);
+            //SubjectCboxSelectionChanged(null, null);
+            //BuildSelectedletters();
             BuildBtnLetters();
         }
 
         //The func is selecting the word from word list
         private void SelectWord(object sender, RoutedEventArgs e)
         {
-            List<string> words = new List<string>(wordsList);
+            /*List<string> words = new List<string>(wordsList);
             int inx = rnd.Next(words.Count());
             selectedWord = words[inx];
 
@@ -57,9 +63,23 @@ namespace IshTaluy
             {
                 lettersCount++;
                 txtObj[selectedWord.IndexOf(' ')].BorderBrush = new SolidColorBrush(Colors.Transparent);
-            }
+            }*/
+            //SubjectCboxSelectionChanged(sender , e);
+            int inx = rnd.Next(wordDataTable.Rows.Count);
+            selectedWord = wordDataTable.Rows[inx]["word"].ToString();
 
-           ChangingEndLetters();
+            ChangingEndLetters();
+            BuildSelectedletters();
+        }
+
+        private void SubjectCboxSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            int subjId = (int)SubjectCbox.SelectedValue;
+
+            string sqlStr = $"SELECT * FROM WordTbl WHERE num = {subjId}";
+            wordDataTable = DAL.GetDataTable(sqlStr);
+
+            SelectWord(sender , e);
         }
 
         private void ChangingEndLetters()
@@ -96,7 +116,7 @@ namespace IshTaluy
             manImage.Source = bitmap;
 
             SelectWord(sender, e);
-            BuildSelectedletters();
+            //BuildSelectedletters();
             BuildBtnLetters();
         }
 
@@ -109,10 +129,10 @@ namespace IshTaluy
 
             if (this.theWord == null) { return; }
 
-            for (int i = selectedWord.Length-1; i >= 0;i--)
+            for (int i = 0; i < selectedWord.Length; i++)
             {
                 Grid grid = new Grid();                
-                grid.Margin = new Thickness(70,20,70,20);
+                grid.Margin = new Thickness(28, 50, 28, 50);
 
                 TextBox textBox = new TextBox();
                 textBox.TextAlignment = TextAlignment.Center;   
@@ -137,7 +157,7 @@ namespace IshTaluy
             for (int i = 0; i < letters.Count; i++)
             {
                 Grid grid = new Grid();
-                grid.Margin = new Thickness(8,1,8,1);
+                grid.Margin = new Thickness(8,18,8,18);
 
                 Button btn = new Button();
                 btn.Background = (Brush)bc.ConvertFrom("#C9ADA7");
