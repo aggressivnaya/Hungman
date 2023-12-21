@@ -12,7 +12,7 @@ public class DAL
 
     public static OleDbConnection GetConnection()
     {
-        string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Magshimim\source\repos\IshTaluy\Database22.accdb;Persist Security Info=True";
+        string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Magshimim\source\repos\IshTaluy\Database21.accdb;Persist Security Info=True";
         return new OleDbConnection(connectionString);
     }
 
